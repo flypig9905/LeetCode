@@ -1,17 +1,5 @@
 '''
 
-Given a binary tree, find the maximum path sum.
-
-The path may start and end at any node in the tree.
-
-For example:
-Given the below binary tree,
-
-       1
-      / \
-     2   3
-Return 6.
-
 Created on Feb 10, 2014
 
 @author: Songfan
@@ -67,7 +55,10 @@ def dfs(node, maxS):
     else:
         return node.val, maxS
 
-    
+
+
+
+''' unittest '''
 n1 = TreeNode(3)
 n2 = TreeNode(4)
 n3 = TreeNode(5)
