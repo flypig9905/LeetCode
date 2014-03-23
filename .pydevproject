@@ -7,5 +7,7 @@
 <pydev_pathproperty name="org.python.pydev.PROJECT_SOURCE_PATH">
 <path>/LeetCode/code</path>
 <path>/LeetCode/code</path>
+<path>/LeetCode/LC</path>
+<path>/LeetCode/CTCI</path>
 </pydev_pathproperty>
 </pydev_project>
