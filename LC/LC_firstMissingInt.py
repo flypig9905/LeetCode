@@ -25,13 +25,12 @@ def solution(A):
     if n == 0: return -1
     i = 0
     while i < n:
-        ''' be careful with the index, ex: A[2] = 3 '''
-        if A[i] > 0 and A[i] != i + 1:
-            tmp = A[i]
-            A[i] = A[tmp - 1]
-            A[tmp - 1] = tmp
-        else:
-            i += 1
+        ''' index, ex: A[2] = 3 '''
+        while A[i] != i+1:
+            if A[i] < 0 or A[i] >= n or A[i]==A[A[i]-1]: break
+            tmp = A[i]-1
+            A[i], A[tmp] = A[tmp], A[i]
+        i += 1
     for i in range(n):
         if A[i] != i + 1:
             return i + 1
@@ -43,3 +42,6 @@ print solution(A), 'should be 3'
 
 A = [3,4,-1,1]
 print solution(A), 'should be 2'
+
+A = [2]
+print solution(A), 'should be 1'

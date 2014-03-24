@@ -35,8 +35,7 @@ def solution(A, t):
 def _dfs(pool, target, currRes, res, nextIdx):
     if target == 0:
         tmp = currRes[:]
-        if tmp not in res:
-            res.append(tmp)
+        if tmp not in res: res.append(tmp)
         return
     n = len(pool)
     if nextIdx == n: return

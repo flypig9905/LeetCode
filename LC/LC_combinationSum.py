@@ -1,10 +1,4 @@
 '''
-        Created on Feb 2, 2014
-        
-        @author: Songfan
-        '''
-        '''
-
 Given a set of candidate numbers (C) and a target number (T), find all unique combinations in C where the candidate numbers sums to T.
 
 The same repeated number may be chosen from C unlimited number of times.
@@ -44,28 +38,32 @@ def solution1(C, t):
     return h[k]          
             
 ''' dfs '''
-def solution2(C, t):
-    result = []
-    _dfs(C, t, [], result, 0)
-    return result
-
-def _dfs(C, t, intermediate, result, currVal):
-    ''' intermediate: track the current solution
-        result: store the final result
-        currVal: make sure ascending order '''
-    if t == 0: 
-        ''' we have found a solution '''
-        tmp = intermediate[:]
-        result.append(tmp)
-        return
-    for c in C:
-        if t < c: return
-        if c >= currVal:
-            ''' the number appended to intermediate solution has to be >= the current largest '''
-            intermediate.append(c)
-            _dfs(C, t - c, intermediate, result, c)
-            ''' remember to pop back '''
-            intermediate.pop()
+class Solution:
+    # @param candidates, a list of integers
+    # @param target, integer
+    # @return a list of lists of integers
+    def combinationSum(self, C, t):
+        result = []
+        C = sorted(C)
+        self._dfs(C, t, [], result, 0)
+        return result
+    
+    def _dfs(self, C, t, intermediate, result, currVal):
+        ''' intermediate: track the current solution
+            result: store the final result
+            currVal: make sure ascending order '''
+        if t == 0: 
+            ''' we have found a solution '''
+            result.append(intermediate[:])
+            return
+        for c in C:
+            if t < c: return
+            if c >= currVal:
+                ''' the number appended to intermediate solution has to be >= the current largest '''
+                intermediate.append(c)
+                self._dfs(C, t - c, intermediate, result, c)
+                ''' remember to pop back '''
+                intermediate.pop()
 
 
 ''' thought: recursion + memoization '''
@@ -96,5 +94,6 @@ def _comboSum(C, t, h):
 C = [2,3,6,7]
 t = 7
 print solution1(C,t)
-print solution2(C,t)
+solution2 = Solution()
+print solution2.combinationSum(C, t)
 print solution3(C,t)

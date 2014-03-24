@@ -24,31 +24,33 @@ Created on Feb 6, 2014
         N[i][j] = N[i-1][j-1] + N[i-1][j], we can choose to take S[i] into account, or we can ignore it and hope for any upcoming char will qulify this for subseq
 '''
 
-def solution(T, S):
-    m = len(T)
-    n = len(S)
-    if m > n: return False
-    if m == n: return S == T
-    
-    N = {}
-    
-    N[-1,-1] = 1    # the subseq of '' in ''    
-    for i in range(n):
-        N[i,-1] = 1
-    for j in range(m):
-        N[-1,j] = 0    # for index 0 to m-1
-    
-    for i in range(n):
+class Solution:
+    # @return an integer
+    def numDistinct(self, S, T):
+        m = len(T)
+        n = len(S)
+        if m > n: return 0
+        if m == n: return 1 if S == T else 0
+        
+        N = {}
+        N[-1,-1] = 1    # the subseq of '' in ''    
+        for i in range(n):
+            N[i,-1] = 1
         for j in range(m):
-            if S[i] != T[j]:
-                N[i,j] = N[i-1,j]
-            else:
-                N[i,j] = N[i-1,j-1] + N[i-1,j]
-                
-    return N[n-1,m-1]
+            N[-1,j] = 0    # for index 0 to m-1
+        
+        for i in range(n):
+            for j in range(m):
+                if S[i] != T[j]:
+                    N[i,j] = N[i-1,j]
+                else:
+                    N[i,j] = N[i-1,j-1] + N[i-1,j]
+                    
+        return N[n-1,m-1]
 
 
 
 S = "rabbbit"
 T = "rabbit"
-print solution(T, S) 
+ss = Solution()
+print ss.numDistinct(S, T)

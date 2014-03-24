@@ -15,8 +15,7 @@ def divide(a, b):
     if (a > 0 and b > 0) or (a < 0 and b < 0): sign = 1
     elif (a < 0 and b > 0) or (a > 0 and b < 0): sign = -1
     
-    res = -1
-    tmp = 0
+    res, tmp = -1, 0
     while tmp <= a:
         res += 1
         tmp += b

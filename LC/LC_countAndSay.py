@@ -26,9 +26,8 @@ def solution(N):
 def cas(seq):
     n = len(seq)
     prevChar = seq[0]
-    cnt = 0
-    idx = 0
-    res = ''
+    cnt, idx, res = 0, 0, ''
+
     while idx <= n:
         if idx == n:
             res += str(cnt)+str(prevChar)

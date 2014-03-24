@@ -20,37 +20,42 @@ Created on Jan 13, 2014
 
 ''' thought: DP or recursion'''
 
-def decodeWays(s):
-    return _decode(s, len(s) - 1, {})
+class Solution:
+    # @param s, a string
+    # @return an integer
+    def numDecodings(self, s):
+        n = len(s)
+        if n == 0 or s[0] == '0': return 0
+        if n == 1: return self.checkChar(s[0])
+        prevPrev = self.checkChar(s[0])
+        prev = prevPrev * self.checkChar(s[1]) + self.checkChar2(s[0], s[1])
+        
+        for i in range(2,n):
+            tmp = 0
+            if self.checkChar(s[i]): tmp += prev
+            if self.checkChar2(s[i-1], s[i]): tmp += prevPrev
+            prevPrev = prev
+            prev = tmp
+            
+        return prev
 
-def _decode(s, idx, h):
-    n = len(s)
-    assert(n > idx),'input error'
-    ''' caveat: idx should be one less than n '''
-    if idx == -1: return 0
-    if idx == 0: return 1
-    if idx == 1:
-        if int(s[0]) == 1 or (int(s[0]) == 2 and int(s[1]) <= 6): return 2
-        else: return 1
-    if idx in h: return h[idx]
-    prev2 = _decode(s, idx - 2, h)
-    prev1 = _decode(s, idx - 1, h)
+    def checkChar(self, c):
+        if int(c) >= 1 and int(c) <= 9: return 1
+        else: return 0
     
-    if int(s[idx - 1]) == 1 or (int(s[idx - 1]) == 2 and int(s[idx]) <= 6):
-        ''' only satisfy this condition can we have another way of decoding '''
-        h[idx] = prev1 + prev2
-    else:
-        h[idx] = prev1
-        
-    return h[idx]
-        
-        
+    def checkChar2(self, c1, c2):
+        if (int(c1) == 1 and int(c2) >= 0 and int(c2) <= 9) or \
+            (int(c1) == 2 and int(c2) >= 0 and int(c2) <= 6):
+            return 1
+        else:
+            return 0
+
+    
+
+
+
 ''' unittest '''
-s = '12'
-print decodeWays(s), 'should be 2'
-
-s = '124'
-print decodeWays(s), 'shoule be 3'
-
-s = '1212'
-print decodeWays(s), 'should be 5'
+ss = Solution()
+print ss.numDecodings('12'), 'should be 2'
+print ss.numDecodings('110'), 'shoule be 1'
+print ss.numDecodings('1212'), 'should be 5'
