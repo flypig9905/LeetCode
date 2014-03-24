@@ -54,18 +54,27 @@ class BinaryTree:
     O(N) time, O(logN) space ?
 '''
    
-def flatten(root):
-    return _flatten(root, None)
+# Definition for a  binary tree node
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
 
-def _flatten(root, tail):
-    if root is None:
-        ''' this means the current node does not have left child, simply return the tail pointer which represents the flatten version right child ''' 
-        return tail
+class Solution:
+    # @param root, a tree node
+    # @return nothing, do it in place
+    def flatten(self, root):
+        return self._flatten(root, None)
     
-    root.right = _flatten(root.left, \
-                          _flatten(root.right, tail))
-    root.left = None
-    return root
+    def _flatten(self, root, tail):
+        if root is None:
+            ''' this means the current node does not have left child, simply return the tail pointer which represents the flatten version right child ''' 
+            return tail
+        
+        root.right = self._flatten(root.left, self._flatten(root.right, tail))
+        root.left = None
+        return root 
 
 
 
@@ -77,4 +86,5 @@ n2 = TreeNode(2, n3, n4)
 n5 = TreeNode(5, None, n6)
 n1 = TreeNode(1, n2, n5)
 print BinaryTree(n1)
-print BinaryTree(flatten(n1))
+ss = Solution()
+print BinaryTree(ss.flatten(n1))

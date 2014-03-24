@@ -20,28 +20,32 @@ Created on Feb 2, 2014
     
 '''
 
-def solution(A):
-    n = len(A)
-    if n == 0: return -1
-    i = 0
-    while i < n:
-        ''' index, ex: A[2] = 3 '''
-        while A[i] != i+1:
-            if A[i] < 0 or A[i] >= n or A[i]==A[A[i]-1]: break
-            tmp = A[i]-1
-            A[i], A[tmp] = A[tmp], A[i]
-        i += 1
-    for i in range(n):
-        if A[i] != i + 1:
-            return i + 1
-    return -1
+class Solution:
+    # @param A, a list of integers
+    # @return an integer
+    def firstMissingPositive(self, A):
+        n = len(A)
+        if n == 0: return 1
+        i = 0
+        while i < n:
+            ''' index, ex: A[2] = 3 '''
+            while A[i] != i+1:
+                if A[i] < 0 or A[i] >= n or A[i]==A[A[i]-1]: break
+                tmp = A[i]-1
+                A[i], A[tmp] = A[tmp], A[i]
+            i += 1
+        for i in range(n):
+            if A[i] != i + 1:
+                return i + 1
+        return n+1  # all positive number presents
 
 ''' unittest '''
+ss = Solution()
 A = [1,2,0]
-print solution(A), 'should be 3'
+print ss.firstMissingPositive(A), 'should be 3'
 
 A = [3,4,-1,1]
-print solution(A), 'should be 2'
+print ss.firstMissingPositive(A), 'should be 2'
 
 A = [2]
-print solution(A), 'should be 1'
+print ss.firstMissingPositive(A), 'should be 1'

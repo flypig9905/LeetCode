@@ -22,8 +22,7 @@ class Solution:
         n = len(A)
         if n == 0: return A
         if n == 1: return A
-        idx1 = 0
-        idx2 = 1
+        idx1, idx2 = 0, 1
         while idx2 != n:
             if A[idx1] == A[idx2]:
                 idx2 += 1

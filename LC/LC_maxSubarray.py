@@ -19,22 +19,27 @@ Created on Jan 24, 2014
         f[j] = max{f[j-1]+A[j], A[j]}
         target = max{f[j]}
 '''
-import sys
+class Solution:
+    # @param A, a list of integers
+    # @return an integer
+    def maxSubArray(self, A):
+        # let f[i] be the max subarray at i
+        # f[i] = max(f[i-1]+A[i], A[i])
+        # result = max(f[i])
+        n = len(A)
+        if n == 0: return
+        if n == 1: return A[0]
+        res, f = A[0], A[0]
+        for i in range(1,n):
+            f = max(f + A[i], A[i])
+            res = max(res, f)
+        return res
 
-def maxSubarrayDP(A):
-    # assume correct input
-    f = 0
-    result = -sys.maxint
-    for i in range(len(A)):
-        ''' decide if add the previous consecutive array to current element A[i] or start a new subarray with A[i] '''
-        f = max(f + A[i], A[i])
-        ''' store the current best '''
-        result = max(f, result)
-    return result
-
+''' unittest '''
+ss = Solution()
 A = [-2,1,-3,4,-1,2,1,-5,4]
-print maxSubarrayDP(A), 'should be 6'
+print ss.maxSubArray(A), 'should be 6'
 
 
 A = [1,-2,4,-3,5,2,-5,4]
-print maxSubarrayDP(A), 'should be 8'
+print ss.maxSubArray(A), 'should be 8'
