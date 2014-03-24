@@ -14,7 +14,9 @@ Created on Feb 9, 2014
 
 ''' two non-overlap transactions: divide and conquer
     O(N^2) time: for every i, compute max profit from P[:i] and P[i:]
-    O(N) time, O(N) space: forward scan + backward scan
+    O(N) time, O(N) space: 
+        forward scan, compute the max profit that end with each time
+        backward scan, compute the max profit backwards, and check total profit
 '''
 
 def solution(P):

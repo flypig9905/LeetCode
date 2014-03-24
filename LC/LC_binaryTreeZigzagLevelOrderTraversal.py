@@ -30,10 +30,8 @@ def zigzagLevel(root):
     if root is None: return root
     q = Queue()
     q.enqueue(root)
-    level = 0
     q.enqueue('end')
-    currLevel = []
-    res = []
+    level, currLevel, res = 0, [], []
     while not q.isEmpty():
         tmp = q.dequeue()
         if tmp == 'end':
@@ -42,14 +40,12 @@ def zigzagLevel(root):
             level += 1
             res.append(currLevel)
             currLevel = []
-            if q.isEmpty(): break  # no more element
-            else: q.enqueue('end')
+            if not q.isEmpty(): 
+                q.enqueue('end')
         else:
             currLevel.append(tmp.value)
-            if tmp.left:
-                q.enqueue(tmp.left)
-            if tmp.right:
-                q.enqueue(tmp.right)
+            if tmp.left: q.enqueue(tmp.left)
+            if tmp.right: q.enqueue(tmp.right)
     for r in res:
         print r
 
