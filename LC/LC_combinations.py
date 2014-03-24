@@ -18,10 +18,25 @@ Created on Jan 12, 2014
 
 @author: Songfan
 '''
-''' algorithm: recursion'''
+''' dfs '''
+class Solution:
+    # @return a list of lists of integers
+    def combine(self, n, k):
+        res = []
+        self.dfs(n, k, 1, [], res)
+        return res
+    
+    def dfs(self, n, k, startNum, intermediate, res):
+        if k == 0: 
+            res.append(intermediate[:])
+            return
+        for i in range(startNum, n+1):
+            intermediate += [i]
+            self.dfs(n, k-1, i+1, intermediate, res)
+            intermediate.pop()
 
 
-''' recursive '''
+''' recur + memo'''
 def combinations(n, k):
     assert(n >= k),'input error'
     return _combo(n, k, {})
@@ -50,9 +65,7 @@ def _combo(n, k, h):
 ''' DP solution '''
 def combinationsDP(n, k):
     assert(n >= k),'input error'
-    return _comboDP(n, k, {})
-
-def _comboDP(n, k, h):
+    h = {}
     if k == 0: return []
     res = []
     for i in range(1, n + 1):
@@ -72,8 +85,7 @@ def _comboDP(n, k, h):
     return h[k]
     
 
-n = 4
-k = 2
-
-print combinations(n, k)
-print combinationsDP(n, k)
+ss = Solution()
+print ss.combine(4,2)
+print combinations(4,2)
+print combinationsDP(4,2)
