@@ -7,7 +7,7 @@ Created on Nov 14, 2013
 def merge_sort(A):
     mid = len(A) // 2
     left, right = A[:mid], A[mid:]
-    if len(left) > 1: left = merge_sort(left)   # recursive call
+    if len(left) > 1: left = merge_sort(left)   # re cursive call
     if len(right) > 1: right = merge_sort(right)
     res = []
     while left and right:
