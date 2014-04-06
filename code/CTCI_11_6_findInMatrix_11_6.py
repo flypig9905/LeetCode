@@ -11,7 +11,7 @@ def findInMatrix(M,v):
     colStart = 0
     rowEnd = len(M)-1
     colEnd = len(M[0])-1
-    while(rowStart<=rowEnd and colStart<=colEnd):
+    while rowStart<=rowEnd and colStart<=colEnd:
         if M[rowStart][colStart]==v:
             return True 
         elif M[rowEnd][colStart]<v:

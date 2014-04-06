@@ -15,14 +15,11 @@ Created on Jan 1, 2014
 
 def strStr(s, p):
     if not p: return s
-    n = len(s)
-    m = len(p)
-    if n < m:
-        return None
+    n, m = len(s), len(p)
+    if n < m: return
     for i in range(n-m):
         if s[i:i+m] == p:
             return i
-    return None
                
                
 s = 'ABACDDA'

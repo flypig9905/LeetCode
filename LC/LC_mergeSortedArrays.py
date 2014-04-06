@@ -11,13 +11,15 @@ Created on Jan 2, 2014
 
 ''' algorithm: two pointer each from the back of A and B, merge array from back to front '''
 
-def mergeSortedArray(A, m, B, n):
+def merge(A, m, B, n):
     # assume correct input
-    if m == 0: return B
-    if n == 0: return A
-    p1 = m - 1
-    p2 = n - 1
-    while(p1 >= 0 and p2 >= 0):
+    if m == 0: 
+        for x in B: A.append(x)
+        return
+    if n == 0: 
+        return
+    p1, p2 = m-1, n-1
+    while p1 >= 0 and p2 >= 0:
         ''' merge elements backwords from A and B '''
         if A[p1] >= B[p2]:
             ''' ALERT: back position should be p1+p2+1, since p1=m-1 p2=n-1 '''
@@ -28,7 +30,7 @@ def mergeSortedArray(A, m, B, n):
             p2 -= 1
     
     
-    while(p2 >= 0):
+    while p2 >= 0:
         ''' if some element in B is not added to A, this means they are small elements and should be added now '''
         A[p2] = B[p2]
         p2 -= 1
@@ -40,5 +42,9 @@ A = [1,4,7,9,None,None,None,None]
 B = [2,5,8]
 m = 4
 n = 3
-Am = mergeSortedArray(A, m, B, n)
+Am = merge(A, m, B, n)
 print [str(i) for i in Am]
+
+A, B = [], [1]
+merge(A,0,B,1)
+print A

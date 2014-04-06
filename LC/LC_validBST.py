@@ -38,19 +38,16 @@ class TreeNode:
     def __str__(self):
         return str(self.val)
     
-    
+
 def isValidBST(root):
-    if not root: return True
-    if root.left:
-        leftVal = root.left.val
-    else:
-        ''' caveat: set up upper and lower bound for left and right value '''
-        leftVal = -sys.maxint
-    if root.right:
-        rightVal = root.right.val
-    else:
-        rightVal = sys.maxint
-    return root.val > leftVal and root.val < rightVal and isValidBST(root.left) and isValidBST(root.right)
+    def helper(node, lo, hi):
+        if node is None: return True
+        if lo < node.val and node.val < hi:
+            return helper(node.left, lo, node.val) and \
+                helper(node.right, node.val, hi)
+        else:
+            return False
+    return helper(root, -2**32, 2**32)
     
     
 n1 = TreeNode(1)

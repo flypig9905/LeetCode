@@ -32,15 +32,14 @@ def mergeList(a, b):
         return a
     
     # init pointer for each list 
-    c1 = a
-    c2 = b
+    c1, c2 = a, b
     
     ''' use a dummy variable to track the head '''
     dummy = ListNode(-1)
     c3 = dummy
     
     # merge
-    while(c1 and c2):   # if both node is not None, we are not finished
+    while c1 and c2:   # if both node is not None, we are not finished
         if c1.val <= c2.val:
             c3.next = c1
             c1 = c1.next

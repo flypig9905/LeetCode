@@ -34,6 +34,66 @@ O(logN), binary search
 - search upper bound and lower bound
 - compared upper bound and lower bound to see if there should be any interval merge
 '''
+def _search(seq, t):
+    n = len(seq)
+    front, end = 0, n-1
+    while front <= end:
+        mid = (front + end) // 2
+        if seq[mid] <= t and t < seq[mid+1]:
+            return mid
+        elif seq[mid] < t:
+            front = mid + 1
+        else:
+            end = mid - 1
+   
+def search(intervals, inter):
+    st_seq = [int.start for int in intervals]
+    ed_seq = [int.end for int in intervals]
+    
+    st_idx = _search(st_seq, inter.start)
+    ed_idx = _search(ed_seq, inter.end)
+    print st_idx, ed_idx
+    
+    res = []
+    # check if overlap of inter with its previous
+    if inter.start < intervals[st_idx].end:
+        res += intervals[:st_idx+1]
+    else:
+        inter.start = intervals[st_idx].start
+        res += intervals[:st_idx]
+    
+    # check if overlap of inter with its next
+    if inter.
+    
+        
+#    if st_idx%2 == 0:
+
+    
+    
+    
+A = [Interval(1,3),Interval(4,5),Interval(6,7),Interval(8,10),Interval(12,16)]
+b = Interval(4,13)
+B = search(A, b)
+for e in B:
+    print e
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
 def solutionBS(A, b):
     n = len(A)
     if n == 0: return [b]
