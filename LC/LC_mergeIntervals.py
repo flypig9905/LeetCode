@@ -20,22 +20,20 @@ class Interval:
     def __str__(self):
         return '[' + str(self.start) + ',' + str(self.end) + ']'
 
-def mergeInterval(intervals):
-    assert(isinstance(intervals, list)),'input error'
+def merge_interval(intervals):
     n = len(intervals)
     if n == 0: return []
-    interSorted = sorted(intervals, key = lambda x: x.start)
-    curInter = interSorted[0]
+    inter_sort = sorted(intervals, key = lambda x: x.start)
+    curr_inter = inter_sort[0]
     result = []
     for i in range(1,n):
-        assert(isinstance(interSorted[i], Interval)),'input should be object of Interval class'
-        if interSorted[i].start > curInter.end:
-            result.append(curInter)
-            curInter = interSorted[i]
+        if inter_sort[i].start > curr_inter.end:
+            result.append(curr_inter)
+            curr_inter = inter_sort[i]
         else:
-            curInter = Interval(curInter.start, max(curInter.end, interSorted[i].end))
-    if curInter not in result:
-        result.append(curInter)
+            curr_inter = Interval(curr_inter.start, max(curr_inter.end, inter_sort[i].end))
+    if curr_inter not in result:
+        result.append(curr_inter)
     
     return result
     
@@ -51,9 +49,9 @@ def mergeInterval(intervals):
 #i = Interval(1,4)
 #print i
 
-''' unittest mergeInterval '''
+''' unittest merge_interval '''
 intervals = [Interval(2,6),Interval(1,3),Interval(8,18),Interval(10,21)]
-m = mergeInterval(intervals)
+m = merge_interval(intervals)
 for e in m:
     print e
 

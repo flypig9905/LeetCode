@@ -87,19 +87,19 @@ class BinarySearchTree:
             if n.right: q.enqueue(n.right)
             else: return depth
                 
-bst = BinarySearchTree()
- 
-# print bst.get(2)
-bst.put(20)
-bst.put(12)
-bst.put(21)
-bst.put(23)
-print bst
-print bst.minDepth()
-# print bst.get(2)
-# print bst.get(3)
-a = bst[20]
-print a
-bst.delMin()
-print bst
-print bst.minDepth()
+#bst = BinarySearchTree()
+# 
+## print bst.get(2)
+#bst.put(20)
+#bst.put(12)
+#bst.put(21)
+#bst.put(23)
+#print bst
+#print bst.minDepth()
+## print bst.get(2)
+## print bst.get(3)
+#a = bst[20]
+#print a
+#bst.delMin()
+#print bst
+#print bst.minDepth()

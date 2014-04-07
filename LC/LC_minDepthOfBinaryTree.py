@@ -30,20 +30,32 @@ class BinaryTree:
         if node is None: return '*'
         return str(node.val) + '(' + self._display(node.left) + ',' + self._display(node.right) + ')'
 
-def solution(node):
-    return maxHeight(node)
-
-def maxHeight(node):
-    if node is None: return 0
-    return min(maxHeight(node.left) + 1, maxHeight(node.right) + 1)
+class Solution:
+    # @param root, a tree node
+    # @return an integer
+    def minDepth(self, root):
+        if root is None: return 0
+        if root.left is None and root.right is None: return 1
+        
+        if root.left is None:
+            return self.minDepth(root.right) + 1
+        elif root.right is None:
+            return self.minDepth(root.left) + 1
+        else:
+            return min(self.minDepth(root.left), self.minDepth(root.right)) + 1
 
 
 ''' unittest '''
-n1 = TreeNode(3)
-n3 = TreeNode(5)
-n4 = TreeNode(3)
-n5 = TreeNode(2, n1)
-n6 = TreeNode(2, n3, n4)
-n7 = TreeNode(1, n5, n6)
+n1 = TreeNode(1)
+n3 = TreeNode(3)
+n4 = TreeNode(4)
+n5 = TreeNode(5, n1)
+n6 = TreeNode(6, n3, n4)
+n7 = TreeNode(7, n5, n6)
+print BinaryTree(n7)
+ss = Solution()
+print ss.minDepth(n7),'should be 3'   
 
-print solution(n7),'should be 2'   
+n12 = TreeNode(2)
+n11 = TreeNode(1, n12)
+print ss.minDepth(n11), 'should be 2'

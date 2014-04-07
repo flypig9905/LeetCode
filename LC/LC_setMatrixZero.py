@@ -12,9 +12,9 @@ Created on Jan 2, 2014
     
 def setMatrixZero(M):
     m = len(M)
-    if m == 0: return None
+    if m == 0: return
     n = len(M[0])
-    if n == 0: return None
+    if n == 0: return
     
     # iterate the first row and first col, use two flags to indicate if they need to be set to 0, then we set them in the end
     setColOneZero = False

@@ -11,43 +11,38 @@ from stack import Stack
 from queue import Queue
 
 def dfsIterative(node):
-    visitedNode = []
-    if node is None: return visitedNode
+    res = []
+    if node is None: return res
     s = Stack()
     s.push(node)
     while not s.isEmpty():
         tmp = s.pop()
-        visitedNode.append(tmp.value)
-        if tmp.left is not None:
-            s.push(tmp.left)
-        if tmp.right is not None:
-            s.push(tmp.right)
-    return visitedNode
+        res.append(tmp.value)
+        if tmp.right is not None: s.push(tmp.right)
+        if tmp.left is not None: s.push(tmp.left)
+    return res
 
 def dfsRecursive(node):
-    visitedNode = []
-    return _dfsRecur(node, visitedNode)
+    return _dfsRecur(node, [])
 
-def _dfsRecur(node, visitedNode):
+def _dfsRecur(node, res):
     if node is None: return
-    visitedNode.append(node.value)
-    _dfsRecur(node.left, visitedNode)
-    _dfsRecur(node.right, visitedNode)
-    return visitedNode
+    res.append(node.value)
+    _dfsRecur(node.left, res)
+    _dfsRecur(node.right, res)
+    return res
         
 def bfsIterative(node):
     if node is None: return []
-    visitedNode = []
+    res = []
     q = Queue()
     q.enqueue(node)
-    while(not q.isEmpty()):
+    while not q.isEmpty():
         tmp = q.dequeue()
-        visitedNode.append(tmp.value)
-        if tmp.left and tmp.left.value not in visitedNode:
-            q.enqueue(tmp.left)
-        if tmp.right and tmp.right.value not in visitedNode:
-            q.enqueue(tmp.right)
-    return visitedNode
+        res.append(tmp.value)
+        if tmp.left: q.enqueue(tmp.left)
+        if tmp.right: q.enqueue(tmp.right)
+    return res
         
         
         
