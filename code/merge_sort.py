@@ -4,11 +4,26 @@ Created on Nov 14, 2013
 @author: Songfan
 '''
 ''' a better implementation '''
+# def merge_sort(A):
+#     mid = len(A) // 2
+#     left, right = A[:mid], A[mid:]
+#     if len(left) > 1: left = merge_sort(left)   # recursive call
+#     if len(right) > 1: right = merge_sort(right)
+#     res = []
+#     while left and right:
+#         if left[-1] >= right[-1]:   # take larger element, and append it to res, elegent implementation
+#             res.append(left.pop())
+#         else:
+#             res.append(right.pop())
+#     res.reverse()   # remember to reverse this
+#     return (left or right) + res    # either left or right is empty list, use or to avoid complex code
+
 def merge_sort(A):
-    mid = len(A) // 2
-    left, right = A[:mid], A[mid:]
-    if len(left) > 1: left = merge_sort(left)   # recursive call
-    if len(right) > 1: right = merge_sort(right)
+    n = len(A)
+    if n <= 1: return A
+    left, right = A[:len(A)//2], A[len(A)//2:]
+    left = merge_sort(left)   # recursive call
+    right = merge_sort(right)
     res = []
     while left and right:
         if left[-1] >= right[-1]:   # take larger element, and append it to res, elegent implementation
@@ -17,6 +32,7 @@ def merge_sort(A):
             res.append(right.pop())
     res.reverse()   # remember to reverse this
     return (left or right) + res    # either left or right is empty list, use or to avoid complex code
+
 
 ''' so so implementation '''
 

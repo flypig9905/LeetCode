@@ -18,26 +18,28 @@ Created on Feb 4, 2014
 def solution(A, K):
     n = len(A)
     if n == 0 or n == 1: return A
-    slower = 0
-    faster = 0
-    cnt = 0
+    faster, slower, cnt = 1, 0, 0
+    cur = A[0]
     while faster < n:
-        ''' check cnt '''
-        if A[faster] == A[slower] and cnt < K:
+        if A[faster] == cur and cnt < K:
+            A[slower] = cur
             cnt += 1
-            faster += 1
-        elif A[faster] == A[slower]:
-            faster += 1
-        else:
-            slower += cnt
-            A[slower] = A[faster]
-            faster += 1
+            slower += 1
+        elif A[faster] != cur:
+            cur = A[faster]
+            A[slower] = cur
             cnt = 1
-    return A[:slower+1]
+            slower += 1
+        faster += 1
+
+    return A[:slower]
 
 A = [1,1,1,2,2,3,5,6,6,6,6,7]
 print solution(A, 2), 'should be [1, 1, 2, 2, 3, 5, 6, 6, 7]'
-        
+
+A = [1,1,1,1,3,3]
+print solution(A, 2), 'should be [1, 1, 3, 3]'
+   
         
         
         

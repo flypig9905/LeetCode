@@ -16,18 +16,16 @@ Created on Jan 31, 2014
     
 def solution(A):
     n = len(A)
-    if n == 0 or n == 1: return None
-    first = 0
-    last = n - 1
-    maxVol = 0
+    if n <= 1: return 0
+    first, last, max_v = 0, n-1, 0
     while first < last:
-        currVol = (last - first) * min(A[first], A[last])
-        maxVol = max(currVol, maxVol)
+        cur_v = (last - first) * min(A[first], A[last])
+        max_v = max(cur_v, max_v)
         if A[first] < A[last]:
             first += 1
         else:
             last -= 1
-    return maxVol
+    return max_v
 
 A = [2,3,1000,4]
 print solution(A), 'should be 6'
