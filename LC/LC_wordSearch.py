@@ -30,10 +30,7 @@ def wordSearch(board, word):
     row = len(board)
     col = len(board[0])
     ''' python 2-dim list is tricky, use dictionary instead '''
-    visited = {}
-    for i in range(row):
-        for j in range(col):
-            visited[i,j] = False
+    visited = [[False for _ in range(col)] for _ in range(row)]
     
     for i in range(row):
         for j in range(col):
@@ -46,17 +43,17 @@ def _dfs(board, word, m, n, visited, charPosition):
         return True
     if m < 0 or n < 0 or m >= len(board) or n >= len(board[0]):   # out of boundary
         return False
-    if visited[m,n] is True:   # we have visited this grid
+    if visited[m][n] is True:   # we have visited this grid
         return False
     if board[m][n] != word[charPosition]: # end search if char doesn't match
         return False
-    visited[m,n] = True
+    visited[m][n] = True
     res =   _dfs(board, word, m + 1, n, visited, charPosition + 1) or \
             _dfs(board, word, m - 1, n, visited, charPosition + 1) or \
             _dfs(board, word, m, n + 1, visited, charPosition + 1) or \
             _dfs(board, word, m, n - 1, visited, charPosition + 1)
     ''' caveat: set this grid visited to be False '''
-    visited[m,n] = False
+    visited[m][n] = False
     return res
 
 board = [

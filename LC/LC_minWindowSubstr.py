@@ -18,68 +18,51 @@ Created on Feb 4, 2014
 '''
 ''' two hashtable: has found, need to find
    +two pointer:   one front, one back
-    needNum: track if all the chars need are found. 
     
-    algorithm: Move back ptr and record hasFound and needNum. If char needed are all found, we increase front while maintaining the status that all chars are found. Store the length 
-    to the global var minWindow.
+    algorithm: 
+        If not all char needed are found: increase faster and update tables
+        while all char are found: record result, increase slower, and update table, 
    
 '''
-
-def solution(S, T):
-    m = len(T)
-    n = len(S)
-    if m > n or n == 0: return ''
+class Solution:
+    # @return a string
+    def minWindow(self, S, T):
+        n = len(S)
+        char_need, char_have, char_T = {}, {}, {}
+        for c in T:
+            char_need[c] = char_need.get(c,0) + 1
+            char_T[c] = char_T.get(c,0) + 1
+        
+        faster, slower, res = 0, 0, ''
+    #    update_table_add(char_need, char_have, char_T, S)
+        while faster < n:
+            if char_need.keys() != []:
+                self.update_table_add(char_need, char_have, char_T, S[faster])
+                faster += 1
+            while char_need.keys() == []:
+                res_len = len(res)
+                if res_len == 0 or res_len > faster-slower: res = S[slower:faster]
+                slower += 1
+                self.update_table_sub(char_need, char_have, char_T, S[slower-1])
+        
+        return res
     
-    needToFind = {}
-    needNum = 0
-    hasFound = {}
-    for s in T:
-        needToFind[s] = needToFind.get(s, 0) + 1
-        needNum += 1
+    def update_table_sub(self, need, have, char_T, c):
+        have[c] -= 1
+        if c in char_T and have[c] < char_T[c]:
+            need[c] = need.get(c,0) + 1
     
-    front = 0
-    back = 0
-    minWindow = n
-    minWindowChars = T
-    while back < n:
-        s = S[back]
-        if s not in needToFind:
-            ''' skip chars that are not in T '''
-            back += 1
-            continue
-        
-        hasFound[s] = hasFound.get(s, 0) + 1
-        if hasFound[s] <= needToFind[s]:
-            needNum -= 1
-        
-        if needNum == 0:
-            ''' means we have get all the chars in T, check to see if we can increase the front pointer '''
-            # ignore chars not need to find
-            while S[front] not in needToFind or \
-                    S[front] in hasFound and S[front] in needToFind and hasFound[S[front]] > needToFind[S[front]]:
-                
-                if S[front] in hasFound and S[front] in needToFind and hasFound[S[front]] > needToFind[S[front]]:
-                    hasFound[S[front]] -= 1
-                front += 1
-            
-            ''' record current min '''
-            if minWindow > back - front + 1:
-                minWindowChars = S[front:back+1]
-                minWindow = back - front + 1
-            
-        back += 1
-    if needNum > 0:
-        return ''
-    else:
-        return minWindowChars
-        
+    def update_table_add(self, need, have, char_T, c):
+        have[c] = have.get(c,0) + 1
+        if c in need:
+            need[c] -= 1
+            need[c] = max(0, need[c]) # need cannot be negative
+            if need[c] == 0:
+                need.pop(c) 
+    
 S = "ADOBECODEBANC"
 T = "ABC"
-print solution(S, T)
-             
-    
-    
-    
-    
-    
-    
+ss = Solution()
+print ss.minWindow(S, T)    
+print ss.minWindow('ab', 'a')
+
